@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Challenge Me Configuration</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="config.css" />
+</head>
+<body>
+    <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
+    <script src="jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="./resources/constants.js" type="text/javascript"></script>
+    <script src="./twitch/twitchInit.js" type="text/javascript"></script>
+    <script src="./ui/ui.js" type="text/javascript"></script>
+    <script src="./request/createRequiredConfigRequest.js" type="text/javascript"></script>
+    <script src="./request/createGetConfigRequest.js" type="text/javascript"></script>
+    <script src="./request/createSetConfigRequest.js" type="text/javascript"></script>
+    <script src="./request/createSLAuthRequest.js" type="text/javascript"></script>
+    <script src="./request/createUserNameRequest.js" type="text/javascript"></script>
+    <script src="./verification/verifyConfig.js" type="text/javascript"></script>
+    <script src="config_index.js" type="text/javascript"></script>
+    <div id="viewer-container">
+      <div id="backdrop" hidden></div>
+      <div id="config_error_msg" class="error_msg" hidden>
+        <h3 class="error_header">Invalid Input</h3>
+        <div class="close">X</div>
+        <p></p>
+      </div>
+      <div id="config_notification" class="notification" hidden>
+        <h3 class="notification_header">Saved</h3>
+        <div class="close">X</div>
+        <p></p>
+      </div>
+      <div id="invalid" class="invalid" hidden>
+        <h3 class="invalid_header">Invalid Request</h3>
+        <div class="close">X</div>
+        <p></p>
+        <p></p>
+      </div>
+      <header>
+        <h2>CHALLENGE ME!</h2>
+        <h3>CONFIGURATION</h3>
+      </header>
+      <hr />
+      <main>
+        <div id="required">
+          <h3>REQUIRED</h3>
+          <h4>1) Streamlabs Authorization</h4>
+          <p>
+            Authorize or deny access to Streamlabs by clicking the button below.
+            Authorization is required for this extension to function.
+          </p>
+          <p>
+            Streamlabs is used solely to send alerts.  If you wish to
+            disable alerts, this can be done below.
+          </p>
+          <div id="auth_button">
+            <a id="sl_authorize" target="_blank">
+              <div class="button auth_button">
+                <span>Authorize Streamlabs</span>
+              </div>
+            </a>
+          </div>
+          <h4>2) Server Region</h4>
+          <p>
+            Select your League of Legends server region.  Note that
+            you will need to update this if you switch regions.
+          </p>
+          <div id="server" class="config_input">
+            <label>Region: </label>
+            <select name="server" class="server_region">
+              <option value="BR1">BR</option>
+              <option value="EUN1">EUNE</option>
+              <option value="EUW1">EUW</option>
+              <option value="JP1">JP</option>
+              <option value="KR">KR</option>
+              <option value="LA1">LAN</option>
+              <option value="LA2">LAS</option>
+              <option value="NA1" selected>NA</option>
+              <option value="OC1">OCE</option>
+              <option value="TR1">TR</option>
+              <option value="RU">RU</option>
+              <option value="PBE1">PBE</option>
+            </select>
+          </div>
+          <h4>3) Summoner Name</h4>
+          <p>
+            Enter your League of Legends summoner name below.  Note that
+            you will need to update this whenever you switch accounts.
+          </p>
+          <div id="summoner_id" class="config_input">
+            <label>Summoner name: </label>
+            <input type="textbox" class="config_text" placeholder="summoner" />
+          </div>
+          <div class="button save">
+            <span>Save</span>
+          </div>
+        </div>
+        <hr />
+        <div id="limits">
+          <h3>LIMITS</h3><h3>&nbsp;(OPTIONAL)</h3>
+          <h4>
+            Don't get trolled!  Set limits on kills, deaths, or bits!
+            Challenges outside of these limits will be ignored.
+          </h4>
+          <h4>4) Minimum Challenge Bits</h4>
+          <p>
+            Minimum number of bits to accept for challenges.  Default is 100.
+          </p>
+          <div id="min_challenge_bits" class="config_input">
+            <label>Minimum challenge bits: </label>
+            <input type="textbox" class="config_text" placeholder="100" />
+          </div>
+          <h4>5) Maximum Challenge Kills</h4>
+          <p>
+            Maximum number of kills to accept for challenges
+            (e.g., viewer challenges you to get 10 kills in a game).
+            Default is 20.
+          </p>
+          <div id="max_kills" class="config_input">
+            <label>Maxmimum challenge kills: </label>
+            <input type="textbox" class="config_text" placeholder="20" />
+          </div>
+          <h4>6) Minimum Challenge Deaths</h4>
+          <p>
+            Minimum number of deaths to accept for challenges
+            (e.g., viewer challenges you to get no more than 4 deaths in a game).
+            Default is 3.
+          </p>
+          <div id="min_deaths" class="config_input">
+            <label>Minimum challenge deaths: </label>
+            <input type="textbox" class="config_text" placeholder="3" />
+          </div>
+          <h4>7) Minimum Bounty Bits</h4>
+          <p>
+            Minimum number of bits to accept PER KILL for bounties
+            (e.g., viewer sets a bounty of 300 bits for each kill, or a
+            bounty of 500 bits per kill on Garen).  Default is 50.
+          </p>
+          <div id="min_bounty_bits" class="config_input">
+            <label>Minimum bounty bits: </label>
+            <input type="textbox" class="config_text" placeholder="50" />
+          </div>
+          <h4>8) Maximum Death Penalty Bits</h4>
+          <p>Death penalties are SUBTRACTED from your bounty.</p>
+          <p>
+            Maximum number of bits to subtract PER DEATH for bounties
+            (e.g., viewer sets a bounty and subtracts 100 bits for each of
+            your deaths).  Default is 2,500.
+          </p>
+          <p>If you want to disable death penalties, just enter 0 below.</p>
+          <div id="max_death_penalty" class="config_input">
+            <label>Maximum death penalty bits: </label>
+            <input type="textbox" class="config_text" placeholder="2500" />
+          </div>
+        </div>
+        <hr />
+        <div id="alerts">
+          <h3>ALERTS</h3><h3>&nbsp;(OPTIONAL)</h3>
+          <h4>9) On-Stream Alerts</h4>
+          <p>
+            Note that if alerts are switched off, then challenges and bounties
+            will only appear in the chatbox, and you will not otherwise be
+            notified of them.
+          </p>
+          <div id="alert_toggle" class="config_input">
+            <label>On-stream alerts: </label>
+            <label class="switch">
+              <input type="checkbox" checked />
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <h4>10) Challenge Alert Threshold</h4>
+          <p>
+            Minimum number of bits to trigger alerts for challenges.
+            Default is 100.
+          </p>
+          <div id="min_challenge_alerts" class="config_input">
+            <label>Challenge alert threshold bits: </label>
+            <input type="textbox" class="config_text" placeholder="100" />
+          </div>
+          <h4>11) Bounty Alert Threshold</h4>
+          <p>
+            Minimum number of bits PER KILL to trigger alerts for bounties.
+            Default is 50.
+          </p>
+          <div id="min_bounty_alerts" class="config_input">
+            <label>Bounty alert threshold bits: </label>
+            <input type="textbox" class="config_text" placeholder="50" />
+          </div>
+        </div>
+        <hr />
+        <div class="button save">
+          <span>Save</span>
+        </div>
+      </main>
+    </div>
+</body>
+</html>

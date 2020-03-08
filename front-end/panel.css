@@ -1,0 +1,209 @@
+@import url("./reset.css");
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./fonts/Montserrat-Regular.otf");
+}
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+#viewer-container {
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  background-color: #1c0636;
+  font-family: "Montserrat";
+  font-size: 12px;
+}
+
+#backdrop {
+  position: fixed;
+  content: "";
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.error_msg, .notification, .nullification, .invalid {
+  width: 80%;
+  color: #444;
+  background-color: #fff;
+  z-index: 2;
+}
+
+.error_msg p, .notification p, .nullification p, .invalid p {
+  padding: 0 10px 10px 10px;
+}
+
+#challenge_error_msg, #challenge_notification, #challenge_result, #challenge_nullification {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+#bounty_error_msg, #bounty_notification, #bounty_result, #bounty_nullification {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+#invalid {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.error_header, .notification_header, .nullification_header, .invalid_header {
+  margin: 6px 0 12px 0;
+  padding: 0;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #fff;
+}
+
+.close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  height: 14px;
+  width: 10px;
+  text-align: center;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.close:hover {
+  font-weight: bold;
+}
+
+.error_input {
+  border: 1px solid red;
+  background-color: #c1c1c1;
+}
+
+main {
+  margin: 0 10px 0 10px;
+}
+
+ul {
+  margin-left: 10px;
+  list-style: disc;
+}
+
+ul li {
+  padding-top: 10px;
+}
+
+h2 {
+  margin: auto;
+  padding: 20px 0 20px 0;
+  text-align: center;
+  font-weight: 600;
+  font-size: 21px;
+}
+
+p {
+  padding: 10px 0 10px 0;
+}
+
+.challenge_condition, .bounty_condition {
+  font-weight: bold;
+  padding-top: 10px;
+}
+
+#challenge_win, #bounty_win {
+  padding-top: 20px;
+}
+
+#challenge_bits {
+  padding: 30px 0 16px 0;
+  text-align: center;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.challenge_text {
+  width: 14px;
+  border-width: 1px;
+  padding: 1px;
+}
+
+.challenge_bits, .bounty_bits {
+  border-width: 1px;
+  padding: 1px;
+}
+
+#bounty_deaths {
+  padding-bottom: 30px;
+}
+
+.button {
+  margin: 0 auto 20px auto;
+  padding: 5px 10px 7px 10px;
+  height: 16px;
+  width: 160px;
+  color: #444;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #eee8f2;
+  border: 1px solid #e1d3ea;
+  border-radius: 5%;
+  transition: all 0.2s ease-out;
+}
+
+.button span {
+  display: inline-block;
+  margin-top: -8px;
+}
+
+.button:hover {
+  background-color: #b199c1;
+  text-shadow: none;
+  transition: all 0.2s ease-out;
+  cursor: pointer;
+}
+
+#submit_challenge {
+  margin-bottom: 10px;
+}
+
+#get_enemy_champs {
+  margin: 20px auto 0 auto;
+  font-size: 14px;
+}
+
+#scroll_for_bounty {
+  padding-bottom: 12px;
+  text-align: center;
+}
+
+#arrow {
+  vertical-align: sub;
+  font-size: 18px;
+}
+
+hr {
+  width: 80%;
+  border: 0;
+  border-top: 1px solid #fff;
+}
+
+footer {
+  margin: 0 10px 0 10px;
+}

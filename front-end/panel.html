@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Challenge Me</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="panel.css" />
+</head>
+<body>
+    <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
+    <script src="jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="./resources/constants.js" type="text/javascript"></script>
+    <script src="./resources/utils.js" type="text/javascript"></script>
+    <script src="./ui/ui.js" type="text/javascript"></script>
+    <script src="./verification/verifyChallenge.js" type="text/javascript"></script>
+    <script src="./verification/verifyBounty.js" type="text/javascript"></script>
+    <script src="./response/processChallenge.js" type="text/javascript"></script>
+    <script src="./response/processBounty.js" type="text/javascript"></script>
+    <script src="./request/createSubmissionRequest.js" type="text/javascript"></script>
+    <script src="./request/createGetConfigRequest.js" type="text/javascript"></script>
+    <script src="./request/createAlertRequest.js" type="text/javascript"></script>
+    <script src="./request/createChatMsgRequest.js" type="text/javascript"></script>
+    <script src="./request/createGetEnemyChampsRequest.js" type="text/javascript"></script>
+    <script src="./twitch/twitchInit.js" type="text/javascript"></script>
+    <script src="./resources/resetChampNames.js" type="text/javascript"></script>
+    <script src="./resources/useBits.js" type="text/javascript"></script>
+    <script src="./resources/processFail.js" type="text/javascript"></script>
+    <script src="./response/processVerification.js" type="text/javascript"></script>
+    <script src="./request/createVerificationRequest.js" type="text/javascript"></script>
+    <script src="./request/createUserNameRequest.js" type="text/javascript"></script>
+    <script src="panel_index.js" type="text/javascript"></script>
+    <div id="viewer-container">
+      <div id="backdrop" hidden></div>
+      <div id="challenge">
+        <div id="challenge_notification" class="notification" hidden>
+          <h3 class="notification_header">Challenge Issued</h3>
+          <div class="close">X</div>
+          <p></p>
+        </div>
+        <div id="challenge_result" class="notification" hidden>
+          <h3 class="notification_header">Challenge Result</h3>
+          <div class="close">X</div>
+          <p></p>
+        </div>
+        <div id="challenge_error_msg" class="error_msg" hidden>
+          <h3 class="error_header">Invalid Challenge</h3>
+          <div class="close">X</div>
+          <p></p>
+        </div>
+        <div id="challenge_nullification" class="nullification" hidden>
+          <h3 class="nullification_header">Challenge Nullified</h3>
+          <div class="close">X</div>
+          <p></p>
+        </div>
+        <div id="invalid" class="invalid" hidden>
+          <h3 class="invalid_header">Invalid Request</h3>
+          <div class="close">X</div>
+          <p></p>
+          <p></p>
+        </div>
+        <header>
+          <h2>CHALLENGE ME!</h2>
+        </header>
+        <main>
+          <p>
+            <strong>Challenge me with bits! If I achieve the challenge, you send me
+            bits!</strong>
+          </p>
+          <ul>
+            <li>
+              All challenges must be sent between games, or before 10 minutes
+              into the current game.
+            </li>
+            <li>
+              Bits are sent upon game completion.
+            </li>
+            <li>
+              You must confirm the transaction by clicking "Confirm" in the
+              pop-up that appears here when the game completes.
+            </li>
+          </ul>
+          <div id="challenge_win" class="challenge_condition">
+            <label>
+              <input type="checkbox" name="challenge_win" />
+              Must win
+            </label>
+          </div>
+          <div id="challenge_kills" class="challenge_condition">
+            <label>
+              <input type="checkbox" />
+              Minimum kills:&nbsp;
+              <input type="textbox" class="challenge_text" placeholder="x" />
+            </label>
+          </div>
+          <div id="challenge_deaths" class="challenge_condition">
+            <label>
+              <input type="checkbox" />
+              Maximum deaths:&nbsp;
+              <input type="textbox" class="challenge_text" placeholder="x" />
+            </label>
+          </div>
+          <div id="challenge_bits" class="challenge_condition">
+            Send&nbsp;
+            <select name="challenge_bits" class="challenge_bits">
+              <option value="default">&#60;Select&#62;</option>
+              <option value="100">100</option>
+              <option value="300">300</option>
+              <option value="500">500</option>
+              <option value="1000">1,000</option>
+              <option value="2000">2,000</option>
+              <option value="2500">2,500</option>
+              <option value="5000">5,000</option>
+              <option value="10000">10,000</option>
+            </select>
+            &nbsp;bits if I achieve the challenge!
+          </div>
+          <div id="submit_challenge" class="button">
+            <span>Submit Challenge!</span>
+          </div>
+          <p id="scroll_for_bounty">
+              <strong>
+                <span id="arrow">&#x2B07;</span>&nbsp;&nbsp;&nbsp;
+                Scroll down to set a bounty!
+                &nbsp;&nbsp;&nbsp;<span id="arrow">&#x2B07;</span>
+              </strong>
+          </p>
+        </main>
+        <hr />
+      </div>
+      <div id="bounty">
+        <div id="bounty_notification" class="notification" hidden>
+          <h3 class="notification_header">Bounty Set</h3>
+          <div class="close">X</div>
+          <p></p>
+        </div>
+        <div id="bounty_result" class="notification" hidden>
+          <h3 class="notification_header">Bounty Result</h3>
+          <div class="close">X</div>
+          <p></p>
+        </div>
+        <div id="bounty_error_msg" class="error_msg" hidden>
+          <h3 class="error_header">Invalid Bounty</h3>
+          <div class="close">X</div>
+          <p></p>
+        </div>
+        <div id="bounty_nullification" class="nullification" hidden>
+          <h3 class="nullification_header">Bounty Nullified</h3>
+          <div class="close">X</div>
+          <p></p>
+        </div>
+        <header>
+          <h2>SET A BOUNTY!</h2>
+        </header>
+        <main>
+          <p>
+            <strong>Set a bounty for kills! Send me bits for each kill I get,
+            either overall, on specific enemy champions, or both!</strong>
+          </p>
+          <ul>
+            <li>
+              Once the game is live or loading, click the "Get Enemy Champs"
+              button to see the enemy champ names below.
+            </li>
+            <li>
+              To set bounties, select any bounties and amounts, and click
+              "Submit".
+            </li>
+            <li>
+              Otherwise, it works just like challenges above.
+            </li>
+          </ul>
+          <div id="get_enemy_champs" class="button">
+            <span>Get Enemy Champs</span>
+          </div>
+          <div id="bounty_win" class="bounty_condition">
+            <label>
+              <input type="checkbox" name="bounty_win" />
+              Must win
+            </label>
+          </div>
+          <div id="bounty_kills" class="bounty_condition">
+            <label>
+              <input type="checkbox" />
+              <select name="any_kill_bits" class="bounty_bits">
+                <option value="default">&#60;Select&#62;</option>
+                <<option value="50">50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="300">300</option>
+                <option value="500">500</option>
+                <option value="1000">1,000</option>
+                <option value="2000">2,000</option>
+                <option value="2500">2,500</option>
+              </select>
+              &nbsp;bits for each kill
+            </label>
+          </div>
+          <div id="bounty_kills_on_1" class="bounty_condition">
+            <label>
+              <input type="checkbox" />
+              <select name="champ_1_kill_bits" class="bounty_bits">
+                <option value="default">&#60;Select&#62;</option>
+                <<option value="50">50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="300">300</option>
+                <option value="500">500</option>
+                <option value="1000">1,000</option>
+                <option value="2000">2,000</option>
+                <option value="2500">2,500</option>
+                <option value="5000">5,000</option>
+              </select>
+              &nbsp;bits per
+              <span id="bounty_1_name">______</span>
+              kill
+            </label>
+          </div>
+          <div id="bounty_kills_on_2" class="bounty_condition">
+            <label>
+              <input type="checkbox" />
+              <select name="champ_2_kill_bits" class="bounty_bits">
+                <option value="default">&#60;Select&#62;</option>
+                <<option value="50">50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="300">300</option>
+                <option value="500">500</option>
+                <option value="1000">1,000</option>
+                <option value="2000">2,000</option>
+                <option value="2500">2,500</option>
+                <option value="5000">5,000</option>
+              </select>
+              &nbsp;bits per
+              <span id="bounty_2_name">______</span>
+              kill
+            </label>
+          </div>
+          <div id="bounty_kills_on_3" class="bounty_condition">
+            <label>
+              <input type="checkbox" />
+              <select name="champ_3_kill_bits" class="bounty_bits">
+                <option value="default">&#60;Select&#62;</option>
+                <<option value="50">50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="300">300</option>
+                <option value="500">500</option>
+                <option value="1000">1,000</option>
+                <option value="2000">2,000</option>
+                <option value="2500">2,500</option>
+                <option value="5000">5,000</option>
+              </select>
+              &nbsp;bits per
+              <span id="bounty_3_name">______</span>
+              kill
+            </label>
+          </div>
+          <div id="bounty_kills_on_4" class="bounty_condition">
+            <label>
+              <input type="checkbox" />
+              <select name="champ_4_kill_bits" class="bounty_bits">
+                <option value="default">&#60;Select&#62;</option>
+                <<option value="50">50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="300">300</option>
+                <option value="500">500</option>
+                <option value="1000">1,000</option>
+                <option value="2000">2,000</option>
+                <option value="2500">2,500</option>
+                <option value="5000">5,000</option>
+              </select>
+              &nbsp;bits per
+              <span id="bounty_4_name">______</span>
+              kill
+            </label>
+          </div>
+          <div id="bounty_kills_on_5" class="bounty_condition">
+            <label>
+              <input type="checkbox" />
+              <select name="champ_5_kill_bits" class="bounty_bits">
+                <option value="default">&#60;Select&#62;</option>
+                <<option value="50">50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="300">300</option>
+                <option value="500">500</option>
+                <option value="1000">1,000</option>
+                <option value="2000">2,000</option>
+                <option value="2500">2,500</option>
+                <option value="5000">5,000</option>
+              </select>
+              &nbsp;bits per
+              <span id="bounty_5_name">______</span>
+              kill
+            </label>
+          </div>
+          <div id="bounty_deaths" class="bounty_condition">
+            <label>
+              <input type="checkbox" />
+              Subtract&nbsp;
+              <select name="death_bits" class="bounty_bits">
+                <option value="default">&#60;Select&#62;</option>
+                <<option value="50">50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="300">300</option>
+                <option value="500">500</option>
+                <option value="1000">1,000</option>
+                <option value="2000">2,000</option>
+                <option value="2500">2,500</option>
+              </select>
+              &nbsp;bits per death
+            </label>
+          </div>
+          <div id="submit_bounty" class="button">
+            <span>Submit Bounty!</span>
+          </div>
+        </main>
+        <footer>
+          <p>
+            <strong>Note:</strong> There is a 10,000 bit cap on any single
+            bounty collection.
+          </p>
+        </footer>
+      </div>
+    </div>
+</body>
+</html>

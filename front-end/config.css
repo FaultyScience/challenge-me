@@ -1,0 +1,235 @@
+@import url("./reset.css");
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./fonts/Montserrat-Regular.otf");
+}
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+#viewer-container {
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  background-color: #1c0636;
+  font-family: "Montserrat";
+  font-size: 12px;
+}
+
+#backdrop {
+  position: fixed;
+  content: "";
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.error_msg, .notification, .invalid {
+  width: 80%;
+  color: #444;
+  background-color: #fff;
+  z-index: 2;
+}
+
+.error_msg p, .notification p, .invalid p {
+  padding: 0 10px 10px 10px;
+}
+
+#config_error_msg, #config_notification, #invalid {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.error_header, .notification_header, .invalid_header {
+  margin: 6px 0 12px 0;
+  padding: 0;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #fff;
+}
+
+.close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  height: 14px;
+  width: 10px;
+  text-align: center;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.close:hover {
+  font-weight: bold;
+}
+
+.error_input {
+  border: 1px solid red;
+  background-color: #c1c1c1;
+}
+
+h2, header h3, main h3 {
+  margin: auto;
+  padding: 20px 0 20px 0;
+  text-align: center;
+  font-weight: 600;
+  font-size: 21px;
+}
+
+header h3, main h3 {
+  padding: 0 0 20px 0;
+  font-size: 18px;
+}
+
+main {
+  margin: 0 10px 0 10px;
+}
+
+main h3 {
+  display: inline-block;
+  padding: 20px 0 20px 0;
+  text-align: left;
+  text-decoration: underline;
+}
+
+main h3:nth-child(2) {
+  text-decoration: none;
+}
+
+main h4 {
+  padding: 10px 0 10px 0;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+p {
+  padding: 0 0 10px 0;
+  font-size: 14px;
+}
+
+#auth_button {
+  text-align: center;
+}
+
+.config_input label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.config_input input, select {
+  margin: 10px 0 20px 10px;
+}
+
+#summoner_id input {
+  margin-bottom: 10px;
+}
+
+#limits h3 {
+  padding-bottom: 10px;
+}
+
+.button {
+  margin: 20px auto 20px auto;
+  padding: 5px 10px 7px 10px;
+  height: 16px;
+  width: 160px;
+  color: #444;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #eee8f2;
+  border: 1px solid #e1d3ea;
+  border-radius: 5%;
+  transition: all 0.2s ease-out;
+}
+
+.button span {
+  display: inline-block;
+  margin-top: -8px;
+}
+
+.button:hover {
+  background-color: #b199c1;
+  text-shadow: none;
+  transition: all 0.2s ease-out;
+  cursor: pointer;
+}
+
+.auth_button {
+  font-size: 14px;
+}
+
+hr {
+  width: 80%;
+  border: 0;
+  border-top: 1px solid #fff;
+}
+
+.switch {
+  margin: 10px 0 20px 18px;;
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 22px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #b199c1;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #b199c1;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(24px);
+  -ms-transform: translateX(24px);
+  transform: translateX(24px);
+}
+
+.slider.round {
+  border-radius: 18px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
